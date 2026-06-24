@@ -585,11 +585,7 @@ document.getElementById('aFormSubmit').addEventListener('click',()=>{
   document.getElementById('aFormRespText').textContent='✅ '+name+': '+formResponses[Math.floor(Math.random()*formResponses.length)];
   resp.classList.add('active');
   setTimeout(()=>resp.classList.remove('active'),5000);
-});
-// ==========================================================================
-// ЛОГИКА И ГЕНЕРАЦИЯ ДЛЯ НОВЫХ ЭКРАНОВ УПЯЧКИ
-// ==========================================================================
-
+];
 function spawnArmy(containerId, count, specialType) {
   const container = document.getElementById(containerId);
   if(!container) return;
