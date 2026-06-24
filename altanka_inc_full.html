@@ -586,4 +586,63 @@ document.getElementById('aFormSubmit').addEventListener('click',()=>{
   resp.classList.add('active');
   setTimeout(()=>resp.classList.remove('active'),5000);
 });
+// ==========================================================================
+// ЛОГИКА И ГЕНЕРАЦИЯ ДЛЯ НОВЫХ ЭКРАНОВ УПЯЧКИ
+// ==========================================================================
+
+function spawnArmy(containerId, count, specialType) {
+  const container = document.getElementById(containerId);
+  if(!container) return;
+  const phrases = ['УПЯЧКА', 'ЖЫВТОНЕ', 'ПЫЩЬ', 'ЧОЧО', 'УГ КГ/АМ', 'ОЯЕБУ'];
+  
+  for(let i=0; i<count; i++) {
+    const man = document.createElement('div');
+    man.className = 'upch-man';
+    man.style.left = Math.random() * 90 + '%';
+    man.style.top = Math.random() * 85 + '%';
+    man.style.animationDelay = (Math.random() * 0.5) + 's';
+    man.style.fontSize = (1.2 + Math.random() * 1.5) + 'rem';
+    man.style.opacity = 0.3 + Math.random() * 0.7;
+    man.textContent = phrases[Math.floor(Math.random() * phrases.length)];
+    container.appendChild(man);
+  }
+  
+  // Особые упячкомены по ТЗ
+  if(specialType === 'alarm') {
+    const m1 = document.createElement('div');
+    m1.className = 'upch-man'; m1.style.left = '10%'; m1.style.top = '20%';
+    m1.style.background = '#000'; m1.style.color = '#ffe600'; m1.style.padding = '5px';
+    m1.textContent = '[ ПОПЯЧТСА ]';
+    
+    const m2 = document.createElement('div');
+    m2.className = 'upch-man'; m2.style.left = '75%'; m2.style.top = '30%';
+    m2.style.background = '#ff2fa0'; m2.style.color = '#fff'; m2.style.padding = '5px';
+    m2.textContent = '[ ОБУХОВКЕ ЗОХВАЧЕНЕ ]';
+    
+    const m3 = document.createElement('div');
+    m3.className = 'upch-man'; m3.style.left = '45%'; m3.style.top = '75%';
+    m3.style.fontSize = '2.5rem';
+    m3.textContent = '🧍💩';
+    
+    container.appendChild(m1);
+    container.appendChild(m2);
+    container.appendChild(m3);
+  }
+}
+
+// Запуск генерации армий при загрузке страницы
+spawnArmy('armyAlarm', 27, 'alarm'); // всего 30 с особыми
+spawnArmy('armyBanya', 20, 'banya');
+
+// Интерактив для экрана "Кто посрал"
+function checkPoopVote() {
+  const resultDiv = document.getElementById('poopResult');
+  resultDiv.style.color = '#ff2020';
+  resultDiv.textContent = 'ПОПЯЧТСА!! ОПРОС ДУМАЕТ...';
+  
+  setTimeout(() => {
+    resultDiv.style.color = '#2bff7a';
+    resultDiv.textContent = 'НИКТО НЕ ВИНОВАТЕ!!!111';
+  }, 1200);
+}
 </script>
