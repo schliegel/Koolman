@@ -1,0 +1,589 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Comic+Neue:ital,wght@0,700;1,700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --pk:#ff2fa0;--yw:#ffe600;--cy:#00e5ff;--pu:#7b2fff;--gr:#2bff7a;--ink:#1a0033;--rd:#ff2020;
+  --fd:'Baloo 2','Trebuchet MS',Arial,sans-serif;
+  --fb:'Comic Neue','Comic Sans MS',cursive,sans-serif;
+}
+#altanka-root{font-family:var(--fb);color:var(--ink);overflow-x:hidden;background:var(--pu);}
+#altanka-root.alarm{animation:af 0.5s infinite;}
+@keyframes af{0%,100%{background:#600}50%{background:#f00}}
+
+.dot{position:absolute;border-radius:50%;opacity:.8;animation:fl 6s ease-in-out infinite;pointer-events:none;}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+
+/* TICKER */
+.aticker{background:var(--ink);color:var(--yw);font-family:var(--fd);font-weight:700;font-size:.85rem;padding:9px 0;overflow:hidden;white-space:nowrap;border-bottom:3px dashed var(--yw);}
+.aticker span{display:inline-block;padding-right:50px;animation:mq 22s linear infinite;}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+.awrap{max-width:900px;margin:0 auto;padding:24px 16px 60px;position:relative;z-index:2;}
+
+/* TIMER */
+.atimer{background:var(--ink);border:3px solid var(--yw);border-radius:14px;padding:12px 18px;margin-top:18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;box-shadow:5px 5px 0 var(--yw);}
+.atimer-lbl{font-family:var(--fd);font-weight:800;font-size:.75rem;color:var(--pk);text-transform:uppercase;letter-spacing:.05em;}
+.atimer-cnt{font-family:var(--fd);font-weight:800;font-size:1.2rem;color:var(--yw);}
+.apish{font-family:var(--fd);font-weight:800;font-size:.8rem;color:var(--gr);animation:blk 1s step-end infinite;}
+@keyframes blk{0%,100%{opacity:1}50%{opacity:0}}
+
+/* HERO CARD */
+.acard{margin-top:20px;background:var(--yw);border:5px solid var(--ink);border-radius:24px;box-shadow:12px 12px 0 var(--ink);padding:36px 36px 28px;display:grid;grid-template-columns:1fr 220px;gap:24px;align-items:center;transform:rotate(-1deg);position:relative;}
+.aeyebrow{display:inline-block;background:var(--pk);color:#fff;font-family:var(--fd);font-weight:800;font-size:.78rem;letter-spacing:.07em;text-transform:uppercase;padding:5px 14px;border-radius:100px;border:3px solid var(--ink);transform:rotate(2deg);margin-bottom:14px;}
+.ah1{font-family:var(--fd);font-weight:900;font-size:clamp(1.5rem,4vw,2.4rem);line-height:1.1;color:var(--ink);text-shadow:3px 3px 0 #fff,5px 5px 0 var(--pk);margin-bottom:14px;}
+.ah1 .asmall{display:block;font-size:clamp(.85rem,2.2vw,1.2rem);color:var(--pu);text-shadow:2px 2px 0 #fff;}
+.ah2{font-family:var(--fb);font-weight:700;font-style:italic;font-size:clamp(.85rem,2vw,1.1rem);color:var(--ink);background:#fff;display:inline-block;padding:6px 14px;border:3px solid var(--ink);border-radius:12px;transform:rotate(1.5deg);box-shadow:4px 4px 0 var(--cy);}
+.asub{margin-top:16px;font-size:.9rem;font-weight:700;line-height:1.5;color:var(--ink);}
+
+/* WITNESS */
+.awitness{margin-top:14px;background:var(--cy);border:3px solid var(--ink);border-radius:10px;padding:9px 14px;transform:rotate(-.5deg);box-shadow:3px 3px 0 var(--ink);min-height:44px;}
+.awit-lbl{font-size:.65rem;font-family:var(--fd);font-weight:700;text-transform:uppercase;letter-spacing:.07em;opacity:.65;margin-bottom:3px;}
+.awit-txt{font-family:var(--fd);font-weight:800;font-size:.85rem;transition:opacity .25s;}
+
+/* DANGER */
+.adanger{margin-top:16px;}
+.adanger-lbl{font-family:var(--fd);font-weight:800;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ink);margin-bottom:6px;}
+.adanger-wrap{background:#fff;border:3px solid var(--ink);border-radius:100px;height:24px;overflow:hidden;box-shadow:3px 3px 0 var(--ink);}
+.adanger-bar{height:100%;width:72%;border-radius:100px;background:linear-gradient(90deg,var(--gr),var(--yw) 40%,var(--pk) 75%,var(--rd));background-size:200% 100%;animation:dp 2s ease-in-out infinite;transition:width 1s;}
+@keyframes dp{0%,100%{background-position:0}50%{background-position:100%}}
+.adanger-lvls{display:flex;justify-content:space-between;margin-top:4px;font-family:var(--fd);font-weight:700;font-size:.62rem;color:var(--ink);}
+.adanger-cur{font-family:var(--fd);font-weight:800;font-size:.78rem;color:var(--rd);margin-top:4px;animation:blk .8s step-end infinite;}
+
+/* HELI */
+.aheli{display:flex;flex-direction:column;align-items:center;gap:12px;}
+.aheli svg{width:190px;height:auto;transition:transform .8s cubic-bezier(.4,0,.2,1);}
+.aheli.spin .rtt{animation:sp .12s linear infinite;}
+.aheli.spin .rtr{animation:sp .15s linear infinite;}
+.aheli.flyaway svg{transform:translateX(400px) translateY(-200px) rotate(20deg);}
+.rtt{transform-origin:118px 38px;}
+.rtr{transform-origin:222px 78px;}
+@keyframes sp{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+.aheli-cap{font-family:var(--fd);font-weight:700;font-size:.72rem;background:var(--cy);border:2px solid var(--ink);border-radius:7px;padding:3px 9px;transform:rotate(-3deg);text-align:center;}
+
+/* SOUND BTN */
+.asound-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--fd);font-weight:800;font-size:.85rem;color:var(--ink);background:var(--gr);border:3px solid var(--ink);border-radius:12px;padding:8px 18px;cursor:pointer;box-shadow:4px 4px 0 var(--ink);transition:transform .1s,box-shadow .1s;margin-top:10px;}
+.asound-btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
+.asound-btn:active{transform:translate(1px,1px);box-shadow:2px 2px 0 var(--ink);}
+
+/* CTA */
+.acta{margin-top:24px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;}
+.acta-btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--fd);font-weight:800;font-size:1.1rem;color:#fff;background:var(--pk);border:4px solid var(--ink);border-radius:16px;padding:14px 32px;cursor:pointer;box-shadow:7px 7px 0 var(--ink);transition:transform .1s,box-shadow .1s,background .12s;}
+.acta-btn:hover{background:var(--gr);color:var(--ink);transform:translate(-3px,-3px) rotate(-1deg);box-shadow:10px 10px 0 var(--ink);}
+.acta-btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink);}
+.acta-alarm{display:inline-flex;align-items:center;gap:10px;font-family:var(--fd);font-weight:800;font-size:.9rem;color:var(--ink);background:var(--yw);border:3px solid var(--ink);border-radius:12px;padding:10px 22px;cursor:pointer;box-shadow:5px 5px 0 var(--ink);transition:transform .1s,box-shadow .1s;}
+.acta-alarm:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink);}
+.ahint{font-size:.75rem;font-style:italic;color:#fff;text-shadow:1px 1px 0 var(--ink);}
+
+/* SECTION DIVIDER */
+.adiv{margin:40px 0 20px;text-align:center;position:relative;}
+.adiv::before{content:'';position:absolute;top:50%;left:0;right:0;height:3px;background:repeating-linear-gradient(90deg,var(--yw) 0 12px,transparent 12px 20px);}
+.adiv-lbl{display:inline-block;position:relative;background:var(--pu);color:var(--yw);font-family:var(--fd);font-weight:800;font-size:.8rem;padding:5px 16px;border:3px solid var(--yw);border-radius:100px;}
+
+/* PARALAX BUSHES SECTION */
+.abushes-section{position:relative;min-height:200px;overflow:hidden;margin:0 -16px;}
+.abush-bg{background:linear-gradient(180deg,var(--pu) 0%,#2d0060 100%);padding:20px 0 0;}
+.abushes-row{display:flex;justify-content:space-around;align-items:flex-end;padding:0 20px;}
+.abush{position:relative;cursor:pointer;}
+.abush svg{display:block;}
+.kulman-peek{position:absolute;bottom:60%;left:50%;transform:translateX(-50%);transition:bottom .4s ease;opacity:0;}
+.abush:hover .kulman-peek{bottom:80%;opacity:1;}
+.abush-caption{font-family:var(--fd);font-weight:800;font-size:.65rem;color:var(--gr);text-align:center;margin-top:4px;opacity:0;transition:opacity .3s;}
+.abush:hover .abush-caption{opacity:1;}
+
+/* DANCERS */
+.adancers-section{background:var(--ink);padding:28px 0;margin:0 -16px;overflow:hidden;position:relative;}
+.adancers-title{font-family:var(--fd);font-weight:800;font-size:1rem;color:var(--yw);text-align:center;margin-bottom:16px;text-transform:uppercase;letter-spacing:.05em;}
+.adancers-row{display:flex;justify-content:space-around;align-items:flex-end;padding:0 20px;min-height:120px;}
+.adancer{position:relative;animation:dance 0.6s ease-in-out infinite alternate;}
+.adancer:nth-child(2){animation-delay:.15s;animation-duration:.5s;}
+.adancer:nth-child(3){animation-delay:.3s;animation-duration:.7s;}
+.adancer:nth-child(4){animation-delay:.1s;animation-duration:.55s;}
+.adancer:nth-child(5){animation-delay:.25s;animation-duration:.65s;}
+@keyframes dance{from{transform:translateY(0) rotate(-5deg)}to{transform:translateY(-12px) rotate(5deg)}}
+.apoop{position:absolute;bottom:-5px;right:-8px;font-size:1rem;animation:poop-fly .8s ease-out forwards;opacity:0;}
+@keyframes poop-fly{0%{opacity:1;transform:translateY(0)}100%{opacity:0;transform:translateY(-40px) rotate(180deg)}}
+
+/* POOP COUNTER */
+.apoop-section{background:var(--ink);padding:20px;text-align:center;margin-top:0;}
+.apoop-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--fd);font-weight:800;font-size:1rem;color:var(--ink);background:var(--yw);border:3px solid var(--yw);border-radius:14px;padding:12px 24px;cursor:pointer;box-shadow:5px 5px 0 rgba(255,255,255,.2);transition:transform .1s;position:relative;overflow:visible;}
+.apoop-btn:hover{transform:scale(1.05);}
+.apoop-cnt{font-family:var(--fd);font-weight:800;font-size:.85rem;color:var(--gr);display:block;margin-top:6px;}
+.apoop-emoji-fly{position:fixed;pointer-events:none;font-size:1.5rem;animation:pef 1s ease-out forwards;z-index:9999;}
+@keyframes pef{0%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-80px) scale(1.5)}}
+
+/* INCIDENT REPLAY */
+.areplay-section{margin-top:8px;}
+.areplay-btn{display:inline-flex;align-items:center;gap:8px;font-family:var(--fd);font-weight:800;font-size:.9rem;color:var(--ink);background:var(--cy);border:3px solid var(--ink);border-radius:12px;padding:10px 20px;cursor:pointer;box-shadow:4px 4px 0 var(--ink);transition:transform .1s;width:100%;justify-content:center;margin-top:14px;}
+.areplay-btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
+.areplay-stage{margin-top:14px;background:var(--ink);border:3px solid var(--yw);border-radius:14px;padding:16px;min-height:80px;display:none;position:relative;overflow:hidden;}
+.areplay-stage.active{display:block;}
+.areplay-scene{font-family:var(--fd);font-weight:800;font-size:.85rem;color:var(--yw);text-align:center;margin-bottom:8px;}
+.areplay-figure{font-size:2.5rem;position:absolute;transition:left .6s ease, bottom .3s ease;bottom:10px;}
+
+/* VERSIONS GENERATOR */
+.aversions-section{margin-top:8px;}
+.avers-btn{display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--fd);font-weight:800;font-size:.9rem;color:#fff;background:var(--pu);border:3px solid var(--ink);border-radius:12px;padding:10px 20px;cursor:pointer;box-shadow:4px 4px 0 var(--ink);width:100%;margin-top:14px;transition:transform .1s;}
+.avers-btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink);}
+.avers-result{margin-top:12px;background:var(--yw);border:3px solid var(--ink);border-radius:12px;padding:14px 16px;display:none;transform:rotate(-.5deg);}
+.avers-result.active{display:block;}
+.avers-stamp{font-family:var(--fd);font-weight:900;font-size:.65rem;color:var(--rd);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;border:2px solid var(--rd);display:inline-block;padding:2px 8px;transform:rotate(-2deg);}
+.avers-text{font-family:var(--fd);font-weight:800;font-size:.9rem;color:var(--ink);line-height:1.5;}
+
+/* TIMELINE */
+.atimeline-section{margin-top:8px;}
+.atl-item{display:flex;gap:14px;margin-bottom:16px;align-items:flex-start;}
+.atl-time{font-family:var(--fd);font-weight:800;font-size:.75rem;color:var(--yw);background:var(--ink);padding:4px 10px;border-radius:8px;white-space:nowrap;border:2px solid var(--yw);flex-shrink:0;}
+.atl-content{background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.15);border-radius:10px;padding:8px 12px;flex:1;}
+.atl-event{font-family:var(--fd);font-weight:800;font-size:.82rem;color:#fff;}
+.atl-detail{font-family:var(--fb);font-size:.75rem;color:rgba(255,255,255,.7);margin-top:3px;font-weight:700;}
+.atl-line{width:2px;background:repeating-linear-gradient(180deg,var(--yw) 0 6px,transparent 6px 12px);margin-left:38px;height:12px;}
+
+/* DONOS FORM */
+.adonos-section{margin-top:8px;}
+.aform{background:var(--yw);border:4px solid var(--ink);border-radius:18px;padding:24px;box-shadow:10px 10px 0 var(--ink);transform:rotate(.5deg);}
+.aform-title{font-family:var(--fd);font-weight:900;font-size:1.1rem;color:var(--ink);text-shadow:2px 2px 0 var(--pk);margin-bottom:4px;}
+.aform-sub{font-family:var(--fb);font-size:.78rem;color:var(--ink);margin-bottom:16px;font-weight:700;font-style:italic;}
+.aform-group{margin-bottom:12px;}
+.aform-label{font-family:var(--fd);font-weight:800;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink);display:block;margin-bottom:4px;}
+.aform-input,.aform-textarea,.aform-select{width:100%;font-family:var(--fd);font-weight:700;font-size:.85rem;background:#fff;border:3px solid var(--ink);border-radius:10px;padding:8px 12px;color:var(--ink);outline:none;}
+.aform-input:focus,.aform-textarea:focus,.aform-select:focus{border-color:var(--pu);box-shadow:0 0 0 3px rgba(123,47,255,.2);}
+.aform-textarea{min-height:70px;resize:vertical;}
+.aform-submit{display:block;width:100%;font-family:var(--fd);font-weight:800;font-size:1rem;color:#fff;background:var(--pk);border:3px solid var(--ink);border-radius:12px;padding:12px;cursor:pointer;box-shadow:5px 5px 0 var(--ink);margin-top:16px;transition:transform .1s,box-shadow .1s;}
+.aform-submit:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink);}
+.aform-submit:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink);}
+.aform-response{display:none;margin-top:14px;background:var(--gr);border:3px solid var(--ink);border-radius:10px;padding:12px 14px;}
+.aform-response.active{display:block;}
+.aform-resp-title{font-family:var(--fd);font-weight:800;font-size:.85rem;color:var(--ink);}
+
+/* SECRET ZONE */
+.asecret-section{background:var(--ink);border:3px dashed rgba(255,0,0,.4);border-radius:16px;padding:20px;margin-top:8px;position:relative;overflow:hidden;}
+.asecret-header{font-family:var(--fd);font-weight:900;font-size:.85rem;color:var(--rd);text-transform:uppercase;letter-spacing:.1em;text-align:center;margin-bottom:14px;animation:blk 1.5s step-end infinite;}
+.asecret-doc{background:#0a0015;border:2px solid rgba(255,0,0,.3);border-radius:10px;padding:14px;margin-bottom:10px;position:relative;}
+.asecret-doc-title{font-family:var(--fd);font-weight:800;font-size:.72rem;color:var(--rd);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+.asecret-line{font-family:'Courier New',monospace;font-size:.72rem;color:rgba(255,255,255,.7);margin-bottom:5px;line-height:1.4;}
+.asecret-redact{display:inline-block;background:var(--rd);color:var(--rd);border-radius:3px;user-select:none;cursor:pointer;transition:background .2s,color .2s;font-family:'Courier New',monospace;font-size:.72rem;}
+.asecret-redact.revealed{background:var(--yw);color:var(--ink);}
+.asecret-stamp{position:absolute;top:50%;right:8px;transform:translateY(-50%) rotate(-15deg);font-family:var(--fd);font-weight:900;font-size:.6rem;color:rgba(255,0,0,.35);border:3px solid rgba(255,0,0,.35);padding:3px 7px;border-radius:4px;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;}
+
+/* VISITOR */
+.avisitor{margin-top:28px;text-align:center;}
+.avisitor-box{display:inline-block;background:var(--ink);border:3px dashed var(--yw);border-radius:14px;padding:12px 24px;font-family:var(--fd);font-weight:800;color:var(--yw);font-size:.85rem;}
+.avisitor-num{color:var(--gr);font-size:1.2rem;}
+
+/* FOOTER */
+.afooter{margin-top:28px;text-align:center;font-family:var(--fd);font-size:.78rem;color:rgba(255,255,255,.8);}
+.afooter a{color:var(--yw);text-decoration:underline wavy;cursor:pointer;}
+
+/* POPUP */
+.apopup-ov{display:none;position:fixed;inset:0;background:rgba(26,0,51,.85);z-index:500;align-items:center;justify-content:center;}
+.apopup-ov.active{display:flex;}
+.apopup-box{background:var(--yw);border:5px solid var(--ink);border-radius:20px;box-shadow:10px 10px 0 var(--ink);padding:28px 36px;max-width:380px;text-align:center;transform:rotate(-2deg);animation:pi .3s cubic-bezier(.17,.89,.32,1.28);}
+@keyframes pi{from{transform:scale(.3) rotate(-5deg);opacity:0}to{transform:scale(1) rotate(-2deg);opacity:1}}
+.apopup-title{font-family:var(--fd);font-weight:900;font-size:1.4rem;line-height:1.1;color:var(--ink);text-shadow:2px 2px 0 var(--pk);margin-bottom:12px;}
+.apopup-text{font-family:var(--fb);font-weight:700;font-size:.85rem;margin-bottom:18px;line-height:1.5;}
+.apopup-close{display:inline-block;font-family:var(--fd);font-weight:800;font-size:.9rem;background:var(--pk);color:#fff;border:3px solid var(--ink);border-radius:10px;padding:8px 22px;cursor:pointer;box-shadow:4px 4px 0 var(--ink);}
+.apopup-close:hover{background:var(--gr);color:var(--ink);}
+
+@media(max-width:600px){
+  .acard{grid-template-columns:1fr;padding:24px 18px;transform:none;}
+  .aheli{order:-1;}
+  .atimer{flex-direction:column;gap:6px;}
+  .adancers-row{gap:8px;}
+}
+</style>
+
+<div id="altanka-root">
+<div style="position:relative;overflow:hidden;background:var(--pu);background-image:radial-gradient(circle at 10% 15%,rgba(255,255,255,.2) 0,transparent 40%),radial-gradient(circle at 90% 80%,rgba(255,255,255,.15) 0,transparent 45%);">
+  <div class="dot" style="width:16px;height:16px;background:var(--cy);top:8%;left:5%;"></div>
+  <div class="dot" style="width:22px;height:22px;background:var(--gr);top:70%;left:90%;animation-delay:1s;"></div>
+  <div class="dot" style="width:12px;height:12px;background:var(--pk);top:40%;left:92%;animation-delay:2s;"></div>
+  <div class="dot" style="width:18px;height:18px;background:var(--yw);top:85%;left:8%;animation-delay:.5s;"></div>
+
+  <div class="aticker">
+    <span>⚠️ АЛЬТАНКЕ КУЛЬМАНЕ ВСТОЯЛЕ ⚠️ — ЖЫВТОНЕ ЧОЧО НЕ ПОКАКЕ!!!11АДИН — ЛУЧИ ПОНОСЕ ВІДБИТО — С.Р.У!!! — ГОЛАКТЕКО В БЕЗПЕКЕ — АЛЬТАНКЕ СЛІДКУЄ ЗА ТОБОЮ — ПЫЩЬ!! ПЫЩЬ!! — КУЛЬМАН КАЖЕ: ЦЕ БУВ НЕ ВІН — ⚠️ АЛЬТАНКЕ КУЛЬМАНЕ ВСТОЯЛЕ ⚠️ — ЖЫВТОНЕ ЧОЧО НЕ ПОКАКЕ!!!11АДИН — ЛУЧИ ПОНОСЕ ВІДБИТО — С.Р.У!!! — ГОЛАКТЕКО В БЕЗПЕКЕ — АЛЬТАНКЕ СЛІДКУЄ ЗА ТОБОЮ — ПЫЩЬ!! ПЫЩЬ!! — КУЛЬМАН КАЖЕ: ЦЕ БУВ НЕ ВІН — </span>
+  </div>
+
+  <div class="awrap">
+    <div class="atimer">
+      <div class="atimer-lbl">⏱️ Без інциденту в альтанке Кульмане:</div>
+      <div class="atimer-cnt" id="aTimer">0д 00:00:00</div>
+      <div class="apish">ПЫЩЬ!!</div>
+    </div>
+
+    <div class="acard">
+      <div>
+        <span class="aeyebrow">ТЕРМІНОВО ЗА АЛЬТАНКЕ!!!11АДИН 🚨</span>
+        <div class="ah1">ЖЫВТОНЕ АЛЬТАНКЕ ОПАСНОСТЕ!!!<span class="asmall">я чуть не покаке в кульмане дворе!!!11АДИН</span></div>
+        <div class="ah2">GAZEBO OF KOOLMAN WAS NEARLY POOPED IN!!!11ONE</div>
+        <p class="asub">ТРИ МОВЕ — ОДНЕ ПОКАКЕ. АЛЬТАНКЕ КУЛЬМАНЕ ВИСТОЯЛЕ. ЛУЧИ ПОНОСЕ НЕ ДОСТРЕЛЬЛЕ. МИР ЗНАЙЕ!!!11АДИНАДИН</p>
+        <div class="awitness">
+          <div class="awit-lbl">📋 Показання свідке:</div>
+          <div class="awit-txt" id="aWit">КУЛЬМАН КАЖЕ: ЦЕ БУВ НЕ ВІН!!!11</div>
+        </div>
+        <div class="adanger">
+          <div class="adanger-lbl">🔴 Рівень загрозе для альтанке Кульмане:</div>
+          <div class="adanger-wrap"><div class="adanger-bar" id="aDBar"></div></div>
+          <div class="adanger-lvls"><span>СПОКІЙНЕ</span><span>ПІДОЗРІЛЕ</span><span>ТРИВОГЕ</span><span>ПЫЩЬ!!!</span></div>
+          <div class="adanger-cur" id="aDLbl">⚠️ РІВЕНЬ: ПІДОЗРІЛЕ!!!</div>
+        </div>
+        <button class="asound-btn" id="aSoundBtn">🔊 ПЫЩЬ!! (натисни)</button>
+      </div>
+      <div class="aheli" id="aHeli">
+        <svg viewBox="0 0 260 140" xmlns="http://www.w3.org/2000/svg">
+          <rect x="150" y="62" width="80" height="14" rx="7" fill="#2bff7a" stroke="#1a0033" stroke-width="4"/>
+          <g class="rtr"><rect x="216" y="58" width="4" height="40" rx="2" fill="#1a0033"/><rect x="202" y="76" width="40" height="4" rx="2" fill="#1a0033"/></g>
+          <ellipse cx="110" cy="78" rx="65" ry="34" fill="#ff2fa0" stroke="#1a0033" stroke-width="5"/>
+          <ellipse cx="78" cy="72" rx="26" ry="20" fill="#00e5ff" stroke="#1a0033" stroke-width="4"/>
+          <rect x="55" y="116" width="110" height="8" rx="4" fill="#1a0033"/>
+          <line x1="75" y1="112" x2="75" y2="124" stroke="#1a0033" stroke-width="6" stroke-linecap="round"/>
+          <line x1="150" y1="112" x2="150" y2="124" stroke="#1a0033" stroke-width="6" stroke-linecap="round"/>
+          <rect x="112" y="34" width="10" height="14" fill="#1a0033"/>
+          <g class="rtt"><rect x="38" y="34" width="160" height="8" rx="4" fill="#1a0033"/><rect x="113" y="-30" width="8" height="138" rx="4" fill="#1a0033"/></g>
+          <path d="M65 80 Q75 88 85 80" stroke="#1a0033" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <circle cx="62" cy="68" r="3" fill="#1a0033"/>
+          <circle cx="88" cy="68" r="3" fill="#1a0033"/>
+        </svg>
+        <div class="aheli-cap">КУЛЬМАН ПОРЯТОВАНО!!!<br>ЛУЧИ ПОНОСЕ ВІДБИТО!!! 🚁</div>
+      </div>
+    </div>
+
+    <div class="acta">
+      <button class="acta-btn" id="aCtaBtn">🚁 АЛЬТАНКЕ НЕ ЗОХВАЧЕНЕ!!!11АДИН</button>
+      <button class="acta-alarm" id="aAlarmBtn">🚨 ОГОЛОСИТИ ТРИВОГЕ В АЛЬТАНКЕ</button>
+      <p class="ahint">(наведи на перший — гвинт закрутитсе // натисни другий — ЛУЧИ ПОНОСЕ АКТИВУЮТЬСЕ!!!11)</p>
+    </div>
+
+    <!-- BUSHES PARALLAX -->
+    <div class="adiv"><span class="adiv-lbl">⬇️ МІСЦЕ ПОДІЙ — ДВІР КУЛЬМАНЕ ⬇️</span></div>
+  </div>
+
+  <div class="abushes-section">
+    <div class="abush-bg">
+      <div class="abushes-row">
+        <div class="abush" title="Куст №1">
+          <div class="kulman-peek">👀</div>
+          <svg width="80" height="70" viewBox="0 0 80 70"><ellipse cx="40" cy="50" rx="38" ry="28" fill="#1a6e1a"/><ellipse cx="25" cy="38" rx="22" ry="18" fill="#23a023"/><ellipse cx="55" cy="35" rx="20" ry="17" fill="#23a023"/><ellipse cx="40" cy="28" rx="18" ry="14" fill="#2bff7a"/></svg>
+          <div class="abush-caption">КУЛЬМАН ТУТ?</div>
+        </div>
+        <div style="font-size:3.5rem;animation:fl 3s ease-in-out infinite;filter:drop-shadow(0 4px 0 rgba(0,0,0,.3));">🏚️</div>
+        <div class="abush" title="Куст №2">
+          <div class="kulman-peek">👁️</div>
+          <svg width="70" height="65" viewBox="0 0 70 65"><ellipse cx="35" cy="46" rx="32" ry="24" fill="#1a6e1a"/><ellipse cx="20" cy="34" rx="18" ry="15" fill="#23a023"/><ellipse cx="50" cy="32" rx="16" ry="14" fill="#23a023"/><ellipse cx="35" cy="24" rx="14" ry="12" fill="#2bff7a"/></svg>
+          <div class="abush-caption">ЖЫВТОНЕ!</div>
+        </div>
+        <div class="abush" title="Куст №3">
+          <div class="kulman-peek">🫣</div>
+          <svg width="90" height="75" viewBox="0 0 90 75"><ellipse cx="45" cy="54" rx="42" ry="30" fill="#1a6e1a"/><ellipse cx="28" cy="40" rx="25" ry="20" fill="#23a023"/><ellipse cx="62" cy="38" rx="22" ry="19" fill="#23a023"/><ellipse cx="45" cy="30" rx="20" ry="16" fill="#2bff7a"/></svg>
+          <div class="abush-caption">ЛУЧИ ПОНОСЕ!</div>
+        </div>
+        <div style="font-size:2rem;animation:fl 4s ease-in-out infinite 1s;">💩</div>
+      </div>
+      <div style="background:linear-gradient(180deg,transparent,var(--ink));height:30px;margin-top:-2px;"></div>
+    </div>
+  </div>
+
+  <!-- DANCERS -->
+  <div class="adancers-section">
+    <div class="adancers-title">💃 ЖЫВТОНЕ СВЯТКУЮТЬ ПОРЯТУНОК АЛЬТАНКЕ 🕺</div>
+    <div class="adancers-row" id="aDancersRow">
+      <div class="adancer" id="ad1">
+        <svg width="50" height="80" viewBox="0 0 50 80"><circle cx="25" cy="12" r="10" fill="#ff2fa0" stroke="#1a0033" stroke-width="2"/><rect x="18" y="22" width="14" height="28" rx="5" fill="#ffe600" stroke="#1a0033" stroke-width="2"/><line x1="18" y1="32" x2="6" y2="45" stroke="#1a0033" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="32" x2="44" y2="42" stroke="#1a0033" stroke-width="3" stroke-linecap="round"/><line x1="22" y1="50" x2="16" y2="72" stroke="#1a0033" stroke-width="3" stroke-linecap="round"/><line x1="28" y1="50" x2="36" y2="70" stroke="#1a0033" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="10" r="2" fill="#1a0033"/><circle cx="30" cy="10" r="2" fill="#1a0033"/><path d="M20 16 Q25 20 30 16" stroke="#1a0033" stroke-width="1.5" fill="none"/></svg>
+      </div>
+      <div class="adancer" style="animation-direction:alternate-reverse;" id="ad2">
+        <svg width="50" height="80" viewBox="0 0 50 80"><circle cx="25" cy="12" r="10" fill="#00e5ff" stroke="#1a0033" stroke-width="2"/><rect x="18" y="22" width="14" height="28" rx="5" fill="#7b2fff" stroke="#1a0033" stroke-width="2"/><line x1="18" y1="30" x2="4" y2="38" stroke="#1a0033" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="30" x2="46" y2="48" stroke="#1a0033" stroke-width="3" stroke-linecap="round"/><line x1="22" y1="50" x2="12" y2="68" stroke="#1a0033" stroke-width="3" stroke-linecap="round"/><line x1="28" y1="50" x2="38" y2="72" stroke="#1a0033" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="10" r="2" fill="#1a0033"/><circle cx="30" cy="10" r="2" fill="#1a0033"/><path d="M19 15 Q25 19 31 15" stroke="#1a0033" stroke-width="1.5" fill="none"/></svg>
+      </div>
+      <div class="adancer" id="ad3">
+        <svg width="50" height="80" viewBox="0 0 50 80"><circle cx="25" cy="12" r="10" fill="#2bff7a" stroke="#1a0033" stroke-width="2"/><rect x="18" y="22" width="14" height="28" rx="5" fill="#ff2020" stroke="#1a0033" stroke-width="2"/><line x1="18" y1="28" x2="2" y2="42" stroke="#1a0033" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="35" x2="44" y2="26" stroke="#1a0033" stroke-width="3" stroke-linecap="round"/><line x1="22" y1="50" x2="18" y2="74" stroke="#1a0033" stroke-width="3" stroke-linecap="round"/><line x1="28" y1="50" x2="34" y2="68" stroke="#1a0033" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="10" r="2" fill="#1a0033"/><circle cx="30" cy="10" r="2" fill="#1a0033"/><path d="M20 16 Q25 20 30 16" stroke="#1a0033" stroke-width="1.5" fill="none"/></svg>
+      </div>
+      <div class="adancer" style="animation-direction:alternate-reverse;" id="ad4">
+        <svg width="50" height="80" viewBox="0 0 50 80"><circle cx="25" cy="12" r="10" fill="#ffe600" stroke="#1a0033" stroke-width="2"/><rect x="18" y="22" width="14" height="28" rx="5" fill="#ff2fa0" stroke="#1a0033" stroke-width="2"/><line x1="18" y1="32" x2="6" y2="22" stroke="#1a0033" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="30" x2="46" y2="40" stroke="#1a0033" stroke-width="3" stroke-linecap="round"/><line x1="22" y1="50" x2="10" y2="70" stroke="#1a0033" stroke-width="3" stroke-linecap="round"/><line x1="28" y1="50" x2="40" y2="66" stroke="#1a0033" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="10" r="2" fill="#1a0033"/><circle cx="30" cy="10" r="2" fill="#1a0033"/><path d="M19 15 Q25 20 31 15" stroke="#1a0033" stroke-width="1.5" fill="none"/></svg>
+      </div>
+      <div class="adancer" id="ad5">
+        <svg width="50" height="80" viewBox="0 0 50 80"><circle cx="25" cy="12" r="10" fill="#7b2fff" stroke="#1a0033" stroke-width="2"/><rect x="18" y="22" width="14" height="28" rx="5" fill="#00e5ff" stroke="#1a0033" stroke-width="2"/><line x1="18" y1="30" x2="8" y2="44" stroke="#1a0033" stroke-width="3" stroke-linecap="round"/><line x1="32" y1="28" x2="46" y2="36" stroke="#1a0033" stroke-width="3" stroke-linecap="round"/><line x1="22" y1="50" x2="14" y2="72" stroke="#1a0033" stroke-width="3" stroke-linecap="round"/><line x1="28" y1="50" x2="36" y2="68" stroke="#1a0033" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="10" r="2" fill="#1a0033"/><circle cx="30" cy="10" r="2" fill="#1a0033"/><path d="M20 16 Q25 20 30 16" stroke="#1a0033" stroke-width="1.5" fill="none"/></svg>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:12px;">
+      <div class="apoop-cnt">💩 Лучів поносе випущено: <span id="aPoopCount">0</span></div>
+      <button class="apoop-btn" id="aPoopBtn">💩 ВИПУСТИТИ ЛУЧ ПОНОСЕ</button>
+    </div>
+  </div>
+
+  <div class="awrap">
+
+    <!-- INCIDENT REPLAY -->
+    <div class="adiv"><span class="adiv-lbl">🎬 ВІДТВОРИТИ ІНЦИДЕНТ</span></div>
+    <div class="areplay-section">
+      <button class="areplay-btn" id="aReplayBtn">▶️ ВІДТВОРИТИ ІНЦИДЕНТ В АЛЬТАНКЕ КУЛЬМАНЕ</button>
+      <div class="areplay-stage" id="aReplayStage">
+        <div class="areplay-scene" id="aReplayScene">...</div>
+        <div style="position:relative;height:60px;">
+          <div class="areplay-figure" id="aReplayFig" style="left:5%;">🚶</div>
+          <div style="position:absolute;right:10px;bottom:0;font-size:2rem;">🏚️</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VERSIONS -->
+    <div class="adiv"><span class="adiv-lbl">📋 ОФІЦІЙНА ВЕРСІЯ ПОДІЙ</span></div>
+    <div class="aversions-section">
+      <button class="avers-btn" id="aVersBtn">🎲 ЗГЕНЕРУВАТИ ОФІЦІЙНУ ВЕРСІЮ ПОДІЙ</button>
+      <div class="avers-result" id="aVersResult">
+        <div class="avers-stamp">СЕКРЕТНО // АЛЬТАНКЕ ІНК.</div>
+        <div class="avers-text" id="aVersText"></div>
+      </div>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="adiv"><span class="adiv-lbl">📅 ХРОНІКА ПОДІЙ — НІЦЬ ІНЦИДЕНТУ</span></div>
+    <div class="atimeline-section">
+      <div class="atl-item">
+        <div class="atl-time">23:38</div>
+        <div class="atl-content"><div class="atl-event">Кульман виходить з дому</div><div class="atl-detail">Мета невідома. Підозріле жывтоне.</div></div>
+      </div>
+      <div class="atl-line"></div>
+      <div class="atl-item">
+        <div class="atl-time">23:41</div>
+        <div class="atl-content"><div class="atl-event">Виявлено альтанку</div><div class="atl-detail">Ситуація стає напруженою. ЛУЧИ ПОНОСЕ ЗАРЯДЖЕНО.</div></div>
+      </div>
+      <div class="atl-line"></div>
+      <div class="atl-item">
+        <div class="atl-time">23:43</div>
+        <div class="atl-content"><div class="atl-event">⚠️ КРИТИЧНИЙ МОМЕНТ</div><div class="atl-detail">Жывтоне сідає в альтанці. ГОЛАКТЕКО ОПАСНОСТЕ!!!11</div></div>
+      </div>
+      <div class="atl-line"></div>
+      <div class="atl-item">
+        <div class="atl-time">23:43:47</div>
+        <div class="atl-content"><div class="atl-event">💨 ПЫЩЬ!! ЕВАКУАЦІЯ!</div><div class="atl-detail">Жывтоне вискочило. Альтанка вистояла. С.Р.У!!!</div></div>
+      </div>
+      <div class="atl-line"></div>
+      <div class="atl-item">
+        <div class="atl-time">23:44</div>
+        <div class="atl-content"><div class="atl-event">✅ Інцидент вичерпано</div><div class="atl-detail">Кульман повернувся додому. Жодних коментарів. ПЫЩЬ.</div></div>
+      </div>
+    </div>
+
+    <!-- DONOS FORM -->
+    <div class="adiv"><span class="adiv-lbl">📬 ФОРМА ДОНОСУ</span></div>
+    <div class="adonos-section">
+      <div class="aform">
+        <div class="aform-title">📋 Повідом про підозріле жывтоне</div>
+        <div class="aform-sub">біля альтанке Кульмане — анонімно і безпечне!</div>
+        <div class="aform-group">
+          <label class="aform-label">Ваше ім'я (або псевдонім жывтоне)</label>
+          <input class="aform-input" type="text" id="aFormName" placeholder="Онотоле / Анонімне жывтоне...">
+        </div>
+        <div class="aform-group">
+          <label class="aform-label">Що бачили біля альтанке?</label>
+          <textarea class="aform-textarea" id="aFormDesc" placeholder="Опишіть підозріле жывтоне та кількість лучів поносе..."></textarea>
+        </div>
+        <div class="aform-group">
+          <label class="aform-label">Рівень загрози</label>
+          <select class="aform-select" id="aFormLevel">
+            <option>СПОКІЙНЕ (підозріле)</option>
+            <option>ПІДОЗРІЛЕ (дуже підозріле)</option>
+            <option>ТРИВОГЕ!!!11</option>
+            <option>ПЫЩЬ!! КУЛЬМАНЕ КІНЕЦЬ!</option>
+          </select>
+        </div>
+        <button class="aform-submit" id="aFormSubmit">📨 ВІДПРАВИТИ ДОНОС В АЛЬТАНКЕ ІНК.</button>
+        <div class="aform-response" id="aFormResp">
+          <div class="aform-resp-title" id="aFormRespText"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECRET ZONE -->
+    <div class="adiv"><span class="adiv-lbl" style="color:var(--rd);border-color:var(--rd);">🔴 СЕКРЕТНА ЗОНА — МАТЕРІАЛИ СПРАВИ №ПЫЩЬ-2026</span></div>
+    <div class="asecret-section">
+      <div class="asecret-header">⚠️ ДОСТУП ОБМЕЖЕНО — НАТИСНИ НА ЧОРНІ БЛОКИ ЩОБ РОЗСЕКРЕТИТИ ⚠️</div>
+      <div class="asecret-doc">
+        <div class="asecret-stamp">СЕКРЕТНО</div>
+        <div class="asecret-doc-title">ПРОТОКОЛ ДОПИТУ №001 — КУЛЬМАН</div>
+        <div class="asecret-line">Ім'я підозрілого: <span class="asecret-redact" onclick="this.classList.toggle('revealed')">КУЛЬМАН (повне ім'я засекречено)</span></div>
+        <div class="asecret-line">Місце перебування в момент інциденту: <span class="asecret-redact" onclick="this.classList.toggle('revealed')">В АЛЬТАНЦІ. АБО НІ. ПИТАННЯ ВІДКРИТЕ.</span></div>
+        <div class="asecret-line">Офіційні свідчення: <span class="asecret-redact" onclick="this.classList.toggle('revealed')">"Це був не я. Я взагалі вдома сидів. ПЫЩЬ."</span></div>
+        <div class="asecret-line">Висновок слідства: <span class="asecret-redact" onclick="this.classList.toggle('revealed')">НЕПЕРЕКОНЛИВО. ГОЛАКТЕКО ВСЕ ЩЕ В НЕБЕЗПЕЦІ.</span></div>
+      </div>
+      <div class="asecret-doc">
+        <div class="asecret-stamp">ТОП СІКРЕТ</div>
+        <div class="asecret-doc-title">СУДОВО-МЕДИЧНИЙ ВИСНОВОК ПРО АЛЬТАНКУ</div>
+        <div class="asecret-line">Стан альтанки: <span class="asecret-redact" onclick="this.classList.toggle('revealed')">ВИСТОЯЛА. ДИВОВИЖНО.</span></div>
+        <div class="asecret-line">Сліди лучів поносе: <span class="asecret-redact" onclick="this.classList.toggle('revealed')">ВИЯВЛЕНО 11 ОДИНИЦЬ. ВСІ ВІДБИТО.</span></div>
+        <div class="asecret-line">Показання альтанки: <span class="asecret-redact" onclick="this.classList.toggle('revealed')">АЛЬТАНКА МОВЧИТЬ. АЛЕ ЗНАЄ.</span></div>
+      </div>
+      <div class="asecret-doc">
+        <div class="asecret-stamp">ЦІЛКОМ СЕКРЕТНО</div>
+        <div class="asecret-doc-title">ПОКАЗАННЯ СВІДКА «ОНОТОЛЕ»</div>
+        <div class="asecret-line">«О 23:43 я особисто бачив як <span class="asecret-redact" onclick="this.classList.toggle('revealed')">ЖЫВТОНЕ (КУЛЬМАН)</span> наближалось до альтанке</div>
+        <div class="asecret-line">з явно <span class="asecret-redact" onclick="this.classList.toggle('revealed')">ПІДОЗРІЛИМИ</span> намірами.</div>
+        <div class="asecret-line">Лучів поносе нарахував: <span class="asecret-redact" onclick="this.classList.toggle('revealed')">СТОПІЦОТ. АБО БІЛЬШЕ.</span></div>
+        <div class="asecret-line">Підпис: <span class="asecret-redact" onclick="this.classList.toggle('revealed')">ОНОТОЛЕ. СВІДЧЕННЯ ПІДТВЕРДЖУЮ. ПЫЩЬ.</span></div>
+      </div>
+    </div>
+
+    <div class="avisitor">
+      <div class="avisitor-box">👁️ Цей сайте відвідале <span class="avisitor-num" id="aVisNum">СТОПІЦОТ</span> жывтоне</div>
+    </div>
+
+    <div class="afooter">
+      Альтанке Інк. © 2026 — ускво стало не з нашое вине, а з вине КУЛЬМАНЕ жывтоне. | ПОКАКЕ НЕ ВІДБУЛОСЕ |
+      <a onclick="alert('ПОЛІТИКЕ КОНФІДЕНЦІЙНОСТЕ ЛУЧІВ ПОНОСЕ: ВСЕ ЩО СТАЛОСЕ В АЛЬТАНКЕ — ЗАЛИШАЄТСЕ В АЛЬТАНКЕ. С.Р.У!!!')">Політике конфіденційносте лучів поносе</a>
+    </div>
+  </div>
+</div>
+
+<div class="apopup-ov" id="aPopup">
+  <div class="apopup-box">
+    <div class="apopup-title">🚨 АЛЬТАНКЕ В НЕБЕЗПЕЦІ!!!<br>ПЫЩЬ!! ПЫЩЬ!!</div>
+    <p class="apopup-text">ЛУЧИ ПОНОСЕ АКТИВОВАНО!!!11АДИН<br>ЖЫВТОНЕ ВИЯВЛЕНО В РАЙОНЕ!<br>ГОЛАКТЕКО ОПАСНОСТЕ!!!<br><br>ЕВАКУЮЙСЕ НЕГАЙНЕ, ЧОЧО!!!</p>
+    <button class="apopup-close" id="aPopupClose">ВІДБИТО АТАКЕ!! ОЯ ЄБУ!!!!</button>
+  </div>
+</div>
+</div>
+
+<script>
+const root = document.getElementById('altanka-root');
+const incidentDate = new Date('2026-03-15T14:23:00');
+function updateTimer(){
+  const diff = new Date() - incidentDate;
+  const d = Math.floor(diff/86400000);
+  const h = Math.floor((diff%86400000)/3600000).toString().padStart(2,'0');
+  const m = Math.floor((diff%3600000)/60000).toString().padStart(2,'0');
+  const s = Math.floor((diff%60000)/1000).toString().padStart(2,'0');
+  document.getElementById('aTimer').textContent = d+'д '+h+':'+m+':'+s;
+}
+setInterval(updateTimer,1000); updateTimer();
+
+const witnesses = ['КУЛЬМАН КАЖЕ: ЦЕ БУВ НЕ ВІН!!!11','АЛЬТАНКЕ ЗАПЕРЕЧУЄ. МОВЧИТЬ. ПЫЩЬ.','ЖЫВТОНЕ: «НЕ ЧУЛ, НЕ БАЧИВ, НЕ ПОКАКАВ»','СУСІД ОНОТОЛЕ: «ЛУЧИ ПОНОСЕ БАЧИВ ОСОБИСТЕ!!!»','КУЛЬМАНОВА ДРУЖИНА: «ВІН БУВ ВДОМА!!! (НЕ ПІДТВЕРДЖЕНО)»','АЛЬТАНКЕ СЛІДКУЄ ЗА ТОБОЮ. ЗАВЖДЕ.','ПЕПЯКА: «СМОТРИ БАЛЕТ, СУКА!!111»','АНОНІМНЕ ЖЫВТОНЕ: «ЦЕ ГОЛАКТЕКО ОПАСНОСТЕ»'];
+let wi=0;
+setInterval(()=>{
+  const el=document.getElementById('aWit');
+  el.style.opacity='0';
+  setTimeout(()=>{wi=(wi+1)%witnesses.length;el.textContent=witnesses[wi];el.style.opacity='1';},250);
+},3000);
+
+const dLvls=[{w:'25%',l:'✅ РІВЕНЬ: СПОКІЙНЕ',c:'#2bff7a'},{w:'52%',l:'⚠️ РІВЕНЬ: ПІДОЗРІЛЕ!!!',c:'#ffe600'},{w:'75%',l:'🔴 РІВЕНЬ: ТРИВОГЕ!!!11',c:'#ff2fa0'},{w:'95%',l:'💀 ПЫЩЬ!!!!! КУЛЬМАНЕ КІНЕЦЬ!',c:'#ff2020'}];
+let di=1;
+setInterval(()=>{
+  di=(di+1)%dLvls.length;
+  document.getElementById('aDBar').style.width=dLvls[di].w;
+  const l=document.getElementById('aDLbl');
+  l.textContent=dLvls[di].l; l.style.color=dLvls[di].c;
+},4000);
+
+const visPool=['СТОПІЦОТ','over 9000','11АДИНАДИН','БЕЗЛІЧ','∞','дуже багато'];
+setInterval(()=>{
+  const p=[...visPool,Math.floor(Math.random()*90000+10000)+''];
+  document.getElementById('aVisNum').textContent=p[Math.floor(Math.random()*p.length)];
+},2000);
+
+const heli=document.getElementById('aHeli');
+const ctaBtn=document.getElementById('aCtaBtn');
+ctaBtn.addEventListener('mouseenter',()=>heli.classList.add('spin'));
+ctaBtn.addEventListener('mouseleave',()=>heli.classList.remove('spin'));
+ctaBtn.addEventListener('touchstart',()=>heli.classList.add('spin'));
+ctaBtn.addEventListener('touchend',()=>heli.classList.remove('spin'));
+
+const popup=document.getElementById('aPopup');
+document.getElementById('aAlarmBtn').addEventListener('click',()=>{
+  popup.classList.add('active');
+  root.classList.add('alarm');
+  heli.classList.add('spin','flyaway');
+});
+document.getElementById('aPopupClose').addEventListener('click',()=>{
+  popup.classList.remove('active');
+  root.classList.remove('alarm');
+  heli.classList.remove('spin','flyaway');
+});
+popup.addEventListener('click',e=>{if(e.target===popup){popup.classList.remove('active');root.classList.remove('alarm');heli.classList.remove('spin','flyaway');}});
+
+document.getElementById('aSoundBtn').addEventListener('click',()=>{
+  try{
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    const o=ctx.createOscillator(); const g=ctx.createGain();
+    o.connect(g); g.connect(ctx.destination);
+    o.frequency.setValueAtTime(880,ctx.currentTime);
+    o.frequency.exponentialRampToValueAtTime(110,ctx.currentTime+0.3);
+    g.gain.setValueAtTime(0.4,ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.35);
+    o.start(); o.stop(ctx.currentTime+0.35);
+    const btn=document.getElementById('aSoundBtn');
+    btn.textContent='💥 ПЫЩЬ!!!!!';
+    setTimeout(()=>btn.textContent='🔊 ПЫЩЬ!! (натисни)',1000);
+  }catch(e){}
+});
+
+let poopCount=0;
+document.getElementById('aPoopBtn').addEventListener('click',function(e){
+  poopCount++;
+  document.getElementById('aPoopCount').textContent=poopCount;
+  for(let i=0;i<3;i++){
+    const el=document.createElement('div');
+    el.className='apoop-emoji-fly';
+    el.textContent='💩';
+    el.style.left=(e.clientX+Math.random()*40-20)+'px';
+    el.style.top=(e.clientY)+'px';
+    el.style.animationDelay=(i*0.1)+'s';
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),1200);
+  }
+  const dancers=['ad1','ad2','ad3','ad4','ad5'];
+  const d=document.getElementById(dancers[Math.floor(Math.random()*dancers.length)]);
+  d.style.animation='none';
+  setTimeout(()=>d.style.animation='',50);
+});
+
+const replayScenes=[
+  {t:'23:38 — Кульман виходить з дому...', f:'🚶', p:'5%'},
+  {t:'23:41 — Виявлено альтанку! ПІДОЗРІЛЕ!!!', f:'🏃', p:'30%'},
+  {t:'23:43 — КРИТИЧНИЙ МОМЕНТ. Жывтоне сідає...', f:'🪑', p:'72%'},
+  {t:'23:43:47 — 💨 ПЫЩЬ!! ЕВАКУАЦІЯ!!!', f:'🏃💨', p:'90%'},
+  {t:'23:44 — Альтанка вистояла. С.Р.У!!!', f:'✅', p:'72%'},
+];
+let replayIdx=0, replayTimer=null;
+document.getElementById('aReplayBtn').addEventListener('click',()=>{
+  const stage=document.getElementById('aReplayStage');
+  stage.classList.add('active');
+  clearInterval(replayTimer);
+  replayIdx=0;
+  function step(){
+    if(replayIdx>=replayScenes.length){clearInterval(replayTimer);return;}
+    const sc=replayScenes[replayIdx];
+    document.getElementById('aReplayScene').textContent=sc.t;
+    const fig=document.getElementById('aReplayFig');
+    fig.textContent=sc.f; fig.style.left=sc.p;
+    replayIdx++;
+  }
+  step();
+  replayTimer=setInterval(step,1200);
+});
+
+const versions=[
+  'О 23:43 жывтоне (Кульман) вийшло у двір з метою "подихати повітрям". Альтанка Кульмане зазнала прямої загрози. Завдяки втручанню ЛУЧІВ ПОНОСЕ катастрофа була відвернена. Онотоле підтверджує. ПЫЩЬ.',
+  'Згідно з офіційною версією альтанке Інк., інцидент стався внаслідок "збігу обставин та надмірного вживання борщу". Кульман заперечує. Альтанка мовчить. Слідство триває!!!11АДИН.',
+  'Секретні джерела стверджують: жывтоне діяло за вказівкою невідомих сил. Лучі поносе були заряджені заздалегідь. Ціль — знищення альтанке Кульмане. Мету не досягнуто. ГОЛАКТЕКО В БЕЗПЕЦІ.',
+  'Офіційна версія #4: Кульман вийшов покурити. Альтанка сама підвернулась. Ніякого інциденту не було. ПЫЩЬ. Ця версія самознищиться через 30 секунд. Або ні.',
+  'Міжнародна комісія з лучів поносе встановила: жывтоне (Кульман) планувало операцію 3 місяці. Альтанка була попереджена агентом на ім\'я ПЕПЯКА. Евакуація пройшла успішно!!!11',
+];
+document.getElementById('aVersBtn').addEventListener('click',()=>{
+  const res=document.getElementById('aVersResult');
+  document.getElementById('aVersText').textContent=versions[Math.floor(Math.random()*versions.length)];
+  res.classList.add('active');
+});
+
+const formResponses=[
+  'ДОНОС ПРИЙНЯТО. ОНОТОЛЕ ПОВІДОМЛЕНО. ЛУЧИ ПОНОСЕ ЗАРЯДЖЕНО. ОЧІКУЙТЕ РЕАКЦІЇ АЛЬТАНКЕ!!!11',
+  'ДЯКУЄМО! ВАШ ДОНОС #СТОПІЦОТ ЗАРЕЄСТРОВАНО. ЖЫВТОНЕ ВЗЯТО НА ОБЛІК. С.Р.У!!!',
+  'ОТРИМАНО! АЛЬТАНКЕ ІНК. РОЗПОЧИНАЄ РОЗСЛІДУВАННЯ. КУЛЬМАН ПОПЕРЕДЖЕНИЙ. ПЫЩЬ!!',
+  'ПРИЙНЯТО ДО РОЗГЛЯДУ! РІВЕНЬ ЗАГРОЗИ ПІДВИЩЕНО ДО "ТРИВОГЕ!!!11". ОНОТОЛЕ ВИЇХАВ НА МІСЦЕ.',
+  'ОЯ ЄБУ!!! ТАКОГО МИ ЩЕ НЕ ЧУЛИ. МАТЕРІАЛИ СПРАВИ ДОПОВНЕНО. ДЯКУЄМО ЗА ПИЛЬНІСТЬ, ЖЫВТОНЕ!',
+];
+document.getElementById('aFormSubmit').addEventListener('click',()=>{
+  const name=document.getElementById('aFormName').value||'Анонімне жывтоне';
+  const resp=document.getElementById('aFormResp');
+  document.getElementById('aFormRespText').textContent='✅ '+name+': '+formResponses[Math.floor(Math.random()*formResponses.length)];
+  resp.classList.add('active');
+  setTimeout(()=>resp.classList.remove('active'),5000);
+});
+</script>
